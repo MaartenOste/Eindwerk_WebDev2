@@ -81,7 +81,7 @@
                 <table>
                     <tr>
                         <th class="menu-item float-center" style="text-align: left;" colspan="3">
-                          <h2 >Volg ons op</h2>
+                          <h2 >Follow us on</h2>
                         </th>
                       </tr>
                   <tr style="color: black">
