@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::name('webhooks.mollie')->post('webhooks/mollie', 'WebHookController@handle');
+Route::post('/newsletter/save', 'NewsletterController@postSave')->name('newsletter.save');
 
 Route::post('/contact', 'ContactController@postContact')->name('contact');
+Route::get('/newsletter', 'PagesController@getNewsLetter')->name('newsletter');
+Route::post('/newsletter/subscribe', 'NewsletterController@postSubscribe')->name('newsletter.subscribe');
+
 
 Route::get('/succes', 'PagesController@getSucces')->name('paymentSucces');
 Route::get('/donations', 'PagesController@getDonations')->name('donations');
@@ -59,6 +63,8 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function(){
 
     Route::get('dashboard/donations', 'DonationsController@getAllDonations')->name('admin.pages.donations');
     Route::get('dashboard/newsletter', 'AdminController@getNewsletter')->name('admin.pages.newsletter');
+    Route::post('/pages/save', 'AdminController@postSavePage')->name('pages.save');
+
 });
 
 Auth::routes();

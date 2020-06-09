@@ -25,7 +25,7 @@ class NewsSeeder extends Seeder
         $news->nl_title = $faker->sentence();
         $news->nl_intro = $faker->paragraph(4);
         $news->nl_content = $faker->paragraph(20);
-        $news->imgurl = $faker->imageUrl();
+        $news->image = $faker->image('public/storage/uploads', 640,480, null, false);
         $news->visible = true;
 
         // bewaren

@@ -40,7 +40,7 @@
             </p>
         </div>
         <div class="right-component">
-            <img class="main-image" src="{{ asset('images/newsimages/streamer.jpg') }}" alt="image">
+            <img class="main-image" src="{{ asset('storage/'. $news->image) }}" alt="image">
         </div>
     </div>
 

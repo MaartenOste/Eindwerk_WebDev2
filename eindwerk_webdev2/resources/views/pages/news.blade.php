@@ -31,7 +31,11 @@
         <div class="col-6 newscol">
             <a class="card-link" href="{{ route('news.detail', $post->id) }}">
             <div class="card newscard">
-            <img class="card-img-top" src="{{ asset('images/newsimages/streamer.jpg') /*$post->imgurl*/ }}" alt="Card image cap">
+                @if($post->image)
+                <div class="imagecontainer">
+                    <img class="card-img-top" src="{{ asset('storage/'. $post->image) }}" alt="Card image cap">
+                </div>
+                @endif
                 <div class="card-body">
                     <h3 class="card-title">
                         @if (app()->getlocale() == 'en')
@@ -56,6 +60,9 @@
         </div>
         @endif
         @endforeach
+      </div>
+      <div class="pagenavigation">
         {{$news->links()}}
       </div>
+
 @endsection

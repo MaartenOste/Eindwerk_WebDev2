@@ -17,7 +17,7 @@
             </h1>
         </div>
     </div>
-    <form action="{{ route('news.save')}}" method="POST">
+    <form action="{{ route('news.save')}}" method="POST" enctype="multipart/form-data">
         <div class="medium-12 columns text-danger">
             @if($errors->any())
             <div class="callout error">
@@ -39,7 +39,12 @@
                 <option value="1">visible</option>
             </select>
         </div>
-        <div class="langtitle p-2 w-100 bg-primary text-white">en</div>
+
+        <div class="input-group d-flex flex-column mt-3">
+            <label for="image">Image:</label>
+            <input type="file" name="image" id="image">
+        </div>
+        <div class="langtitle p-2 w-100 bg-primary text-white mt-4">en</div>
         <div class="input-group d-flex flex-column mt-3">
             <label for="en_title">Title:</label>
             <input type="text" name="en_title" id="en_title" size="100">

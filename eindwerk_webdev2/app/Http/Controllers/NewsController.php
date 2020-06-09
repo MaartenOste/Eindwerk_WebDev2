@@ -18,7 +18,7 @@ class NewsController extends Controller
     }
 
     public function getAllNews(){
-        $news = News::get();
+        $news = News::orderby('created_at', 'desc')->get();
         return view('admin.pages.news', [
             'news' => $news
         ]);
@@ -43,13 +43,16 @@ class NewsController extends Controller
     public function postSave(Request $r) {
         $validationRules = [
         ];
-
         if($r->id) {
             $validationRules['en_title'] = 'required';
             $validationRules['nl_title'] = 'required';
         } else {
             $validationRules['en_title'] = 'required|unique:news';
             $validationRules['nl_title'] = 'required|unique:news';
+        }
+
+        if($r->hasFile('image')){
+            $validationRules['image'] = 'file|image|max:50000';
         }
 
         $r->validate($validationRules);
@@ -62,14 +65,24 @@ class NewsController extends Controller
             'nl_intro' => $r->nl_intro,
             'nl_content' => $r->nl_content,
             'visible' => $r->visible,
-            'imgurl' => 'images/newsimages/streamer.jpg',
         ];
 
         if($r->id) {
-            $client = News::where('id', $r->id)->first();
-            $client->update($data);
+            $news = News::where('id', $r->id)->first();
+            $news->update($data);
+            if($r->image){
+                $news->update([
+                    'image' => $r->image->store('uploads', 'public')
+                ]);
+            }
         } else {
-            $client = News::create($data);
+            $news = News::create($data);
+            if($r->image){
+                $news->update([
+                    'image' => $r->image->store('uploads', 'public')
+                ]);
+
+            }
         }
 
         return redirect()->route('admin.pages.news');
@@ -79,12 +92,5 @@ class NewsController extends Controller
         $temp = News::where('id', $r->post_id)->first();
         News::where('id', $r->post_id)->update(array('visible' => !$temp->visible));
         return redirect()->route('admin.pages.news');
-    }
-
-    public function getIndex() {
-        $news = News::where('visible', true)->orderBy('news.created_at')->paginate(4);
-        return view('pages.news', [
-            'news' => $news
-        ]);
     }
 }

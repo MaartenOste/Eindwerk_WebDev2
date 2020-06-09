@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Mollie\Laravel\Facades\Mollie;
+use App\Donation;
 
 class WebHookController extends Controller
 {
@@ -14,7 +15,6 @@ class WebHookController extends Controller
         }
 
         $payment = Mollie::api()->payments()->get($r->id);
-
         if($payment->isPaid()){
             Log::info('payment is gelukt ');
         } else{

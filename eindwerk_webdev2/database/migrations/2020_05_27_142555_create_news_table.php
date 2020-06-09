@@ -21,7 +21,7 @@ class CreateNewsTable extends Migration
             $table->string('nl_title', 100)->unique();
             $table->text('nl_intro')->nullable();
             $table->text('nl_content')->nullable();
-            $table->string('imgurl', 100);
+            $table->string('image')->nullable();
             $table->boolean('visible');
             $table->timestamps();
         });

@@ -24,14 +24,26 @@
 <div class="container">
     <h1 class="pagetitle">
         @lang('header.donations')
-        <a href="{{ route('donations.create') }}" class="btn btn-danger">donate now!</a>
+        <a href="{{ route('donations.create') }}" class="btn btn-danger">
+            @if (app()->getlocale() == 'en')
+                Donate now!
+            @else
+                Doneer nu!
+        @endif
+        </a>
     </h1>
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Message</th>
+            @if (app()->getlocale() == 'en')
+                <th scope="col">Name</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Message</th>
+                @else
+                <th scope="col">Naam</th>
+                <th scope="col">Bedrag</th>
+                <th scope="col">Bericht</th>
+            @endif
           </tr>
         </thead>
         @foreach ($donations as $donation)

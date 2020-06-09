@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
-use App\News;
+Use App\Env;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -70,6 +70,13 @@ class AdminController extends Controller
     public function getEditPage(Page $page) {
         return view('admin.pages.edit', [
             'page' => $page,
+        ]);
+    }
+
+    public function getNewsletter() {
+        return view('admin.pages.newsletter', [
+            'apikey' => Env::where('name', 'apikey')->first()->key,
+            'listid' => Env::where('name', 'listid')->first()->key
         ]);
     }
 

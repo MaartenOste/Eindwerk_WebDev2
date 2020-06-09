@@ -35,7 +35,6 @@ class DonationsController extends Controller
 
     public function postPreparePayment(Request $r)
     {
-
         $validationRules = [
             'email' => 'required|email',
             'name' => 'required',
@@ -55,22 +54,20 @@ class DonationsController extends Controller
             ],
             "description" => $r->message,
             "redirectUrl" => route('paymentSucces'),
-            "webhookUrl" => 'https://dfb845b29066.ngrok.io/webhooks/mollie',
+            "webhookUrl" => route('webhooks.mollie'),
         ]);
 
-        $payment = Mollie::api()->payments()->get($payment->id);
-
-
-        $data = [
-            'name' => $r->name,
-            'email' => $r->email,
-            'amount' => $r->amount,
-            'message' => $r->message,
-            'visible' => $r->visible,
-        ];
-
-        Donation::create($data);
-
+        $payed = Mollie::api()->payments()->get($payment->id);
+        if($payed->isPaid()){
+            $data = [
+                'name' => $r->name,
+                'email' => $r->email,
+                'amount' => $r->amount,
+                'message' => $r->message,
+                'visible' => $r->visible,
+            ];
+            Donation::create($data);
+        }
         // redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
     }

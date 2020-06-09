@@ -10,8 +10,9 @@
 
 @section('content')
 <div class="container">
-    <form action="{{ route('news.save')}}" method="POST">
+    <form action="{{ route('news.save')}}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="id" value="{{$news->id}}">
         <div class="input-group d-flex flex-column mt-3">
             <label for="visible">Visible:</label>
             <select name="visible" id="visible">
@@ -19,7 +20,10 @@
                 <option value="1"@if($news->visible == 1) selected @endif> visible</option>
             </select>
         </div>
-        <input type="hidden" name="id" value="{{$news->id}}">
+        <div class="input-group d-flex flex-column mt-3">
+            <label for="image">Image:</label>
+            <input type="file" name="image" id="image">
+        </div>
         <div class="langtitle p-2 mt-3 w-100 bg-primary text-white">en</div>
         <div class="input-group d-flex flex-column mt-3">
             <label for="en_title">Title:</label>

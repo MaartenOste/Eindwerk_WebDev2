@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 Use App\Page;
 Use App\News;
 Use App\Donation;
-use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -27,7 +26,7 @@ class PagesController extends Controller
     }
 
     public function getIndex(){
-        $news = News::where('visible', true)->orderBy('news.created_at')->paginate(4);
+        $news = News::where('visible', true)->orderBy('news.created_at', 'desc')->paginate(4);
         return view('pages.news', [
             'news' => $news,
             'pages' => Page::all(),
@@ -62,5 +61,11 @@ class PagesController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function getNewsLetter() {
+        return view('pages.newsletter', [
+            'pages' => Page::all(),
+        ]);
     }
 }

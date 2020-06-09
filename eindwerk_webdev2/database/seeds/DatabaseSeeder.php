@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<48;$i++) {
+        /*for($i=0;$i<9;$i++) {
             $this->call(NewsSeeder::class);
-        }
+        }*/
 
-        for ($i=0; $i <30; $i++) {
+        for ($i=0; $i <9; $i++) {
             $this->call(DonationSeeder::class);
         }
     }
