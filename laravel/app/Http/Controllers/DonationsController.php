@@ -57,17 +57,18 @@ class DonationsController extends Controller
             "webhookUrl" => route('webhooks.mollie'),
         ]);
 
-        $payed = Mollie::api()->payments()->get($payment->id);
-        if($payed->isPaid()){
-            $data = [
-                'name' => $r->name,
-                'email' => $r->email,
-                'amount' => $r->amount,
-                'message' => $r->message,
-                'visible' => $r->visible,
-            ];
-            Donation::create($data);
-        }
+        Mollie::api()->payments()->get($payment->id);
+
+        $data = [
+            'name' => $r->name,
+            'email' => $r->email,
+            'amount' => $r->amount,
+            'message' => $r->message,
+            'visible' => $r->visible,
+        ];
+
+        Donation::create($data);
+
         // redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
     }

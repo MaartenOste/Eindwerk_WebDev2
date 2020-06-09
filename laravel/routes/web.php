@@ -50,13 +50,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function(){
 
     Route::post('/pages/save', 'AdminController@postSavePage')->name('pages.save');
     Route::get('/pages/edit/{page}', 'AdminController@getEditPage')->name('pages.edit');
-    Route::post('/pages/edit/{page}', 'AdminController@postEditPage')->name('pages.edit.post');
     Route::post('/pages/delete', 'AdminController@postDeletePage')->name('pages.delete');
-
-
-    Route::get('dashboard/pages', 'AdminController@getPages')->name('admin.pages.pages');
-    Route::post('dashboard/pages/softdelete', 'AdminController@postSoftdelete')->name('admin.pages.pages.softdelete');
-    Route::post('dashboard/pages/delete', 'AdminController@postDelete')->name('admin.pages.pages.delete');
 
     Route::get('dashboard/news', 'NewsController@getAllNews')->name('admin.pages.news');
     Route::get('dashboard/news/{id}', 'NewsController@getEditDetailPage')->name('admin.pages.news.detail');
